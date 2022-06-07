@@ -6,7 +6,8 @@ from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import ( 
     TokenRefreshView,
 )
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls.conf import include
 from django.contrib.auth import views
 from rest_framework_simplejwt.views import TokenBlacklistView
@@ -76,3 +77,4 @@ urlpatterns=[
     #     name="password_reset_done",
     # ),
 ]
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
