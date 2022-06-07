@@ -15,7 +15,7 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
- 
+import dj_database_url
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -80,46 +80,24 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    # 'default':{},
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    # 'shop': {
-    #         'ENGINE': 'djongo',
-    #         'NAME': 'ECOMMERCE',
-    #         'ENFORCE_SCHEMA': False,
-    #         'CLIENT': {
-    #             # 'host': 'mongodb+srv://keder:keder@cluster0.2ghs0ok.mongodb.net/?retryWrites=true&w=majority'
-    #             'host': 'mongodb://127.0.0.1:27017/'
-    #         }  
-    #     }
-    # migrate --database=users
-}
-# DATABASE_ROUTERS = ['users.apps.AuthRouter','shops.apps.ShopRouter']
 # DATABASES = {
+#     # 'default':{},
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': '',
-#     }
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     },
+#     # 'shop': {
+#     #         'ENGINE': 'djongo',
+#     #         'NAME': '*******',
+#     #         'ENFORCE_SCHEMA': False,
+#     #         'CLIENT': {
+#     #             'host': 'mongodb://127.0.0.1:27017/'
+#     #         }  
+#     #     }
+#     # migrate --database=users
 # }
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'djongo',
-#             'NAME': 'ECOMMERCE',
-#             'ENFORCE_SCHEMA': False,
-#             'CLIENT': {
-#                 # 'host': 'mongodb+srv://keder:keder@cluster0.2ghs0ok.mongodb.net/?retryWrites=true&w=majority'
-#                 'host': 'mongodb://127.0.0.1:27017/'
-#             }  
-#         }
-# }
-
+# DATABASE_ROUTERS = ['users.apps.AuthRouter','shops.apps.ShopRouter']
+ 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -227,3 +205,12 @@ EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 
 # password
 # admin@7890
+
+
+
+
+DATABASES = {
+     
+} 
+
+DATABASES['default'] = dj_database_url.config(default='postgres://fgedhhnfwphjhh:d8efc9781ca294e70ec3d92bd1d0aef84c53e022b8f095f784a227de09ed4e46@ec2-54-147-33-38.compute-1.amazonaws.com:5432/dcj4a9lftjhj6p')
