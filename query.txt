@@ -1,0 +1,5 @@
+python manage.py makemigrations users
+python manage.py migrate users --database=auth_db
+
+python manage.py makemigrations shops
+python manage.py migrate shops --database=shop
