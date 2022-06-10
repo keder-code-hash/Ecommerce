@@ -4,3 +4,4 @@ from .ProductModel import *
 from .CartModel import *
 from .UserOrders import UserOrder,OrderMeasureModel
 from .ShopModel import *
+from .TagModel import *

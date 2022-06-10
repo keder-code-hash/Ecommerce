@@ -4,6 +4,7 @@ from .Address import AddressSerializers
 
 class UsersSerializers(UserEntitySerializers):
     address = AddressSerializers(many = True)
+    delivery_address = AddressSerializers(many = True)
     class Meta:
         model = Users
         fields = "__all__"   

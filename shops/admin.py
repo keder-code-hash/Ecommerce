@@ -5,6 +5,7 @@ from .models.PouchModel import *
 from .models.ShopModel import *
 from .models.UserOrders import UserOrder,OrderMeasureModel
 from .models.CartModel import CartModel
+from .models.TagModel import Tagmodel
 # Register your models here.
 
 admin.site.register(ProductModel)
@@ -20,3 +21,4 @@ admin.site.register(CartModel)
 admin.site.register(UserOrder)
 admin.site.register(OrderMeasureModel)
 
+admin.site.register(Tagmodel)

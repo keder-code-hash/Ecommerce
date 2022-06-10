@@ -2,6 +2,7 @@ from django.db import models
 from .NamedModel import BaseNamedmodel
 from .PouchModel import validate_amount,PouchModel
 from users.models.BaseModel import BaseModel
+from .TagModel import Tagmodel
 
 MEASURING_UNIT_CHOICES = [
     ('CT', 'Countable Quantity'),
@@ -39,6 +40,7 @@ class MeasuringModel(BaseModel):
 class ProductModel(BaseNamedmodel):
     product_images = models.ImageField(upload_to = 'images/') # width and height set, validators add
     measuring_params = models.OneToOneField(MeasuringModel,on_delete=models.CASCADE)
+    related_tags = models.ManyToManyField(Tagmodel,verbose_name="tags according to product",related_name="tags_product")
     class Meta : 
         # abstract = False
         db_table = "Product"

@@ -48,7 +48,13 @@ class CustomAccountManager(BaseUserManager):
         other_fields.setdefault('is_superuser', True)
 
         return self.create_user( username,password, **other_fields)
- 
+
+GENDER_CHOICES = [
+    ("ML","MALE"),
+    ("FM","FEMALE"),
+    ("PN","PREFERS NOT TO SAY"),
+    ("OT","OTHERS")
+]
 
 class Users(UserEntity,AbstractBaseUser, PermissionsMixin):
     identifier = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -64,7 +70,11 @@ class Users(UserEntity,AbstractBaseUser, PermissionsMixin):
     ph_NO = models.CharField(max_length=50)
     
     address = models.ManyToManyField(UserAddressModel,blank=True,verbose_name="user address",related_name="address")
-
+    delivery_address = models.ManyToManyField(UserAddressModel,blank=True,verbose_name="user delivery address",related_name="delivery_address")
+    gender = models.CharField(max_length=2,
+                                choices=GENDER_CHOICES,
+                                default='PN'
+                            )
 
     created_at = models.DateTimeField(auto_created=True,auto_now=True)
     updated_at = models.DateTimeField(auto_created=True,auto_now_add=True)
