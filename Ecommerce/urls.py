@@ -41,5 +41,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/',include('users.urls')),
+    path('shops/',include('shops.urls')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
