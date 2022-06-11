@@ -60,6 +60,10 @@ class CustomModelViewSet(mixins.CreateModelMixin,
 class RegisterView(CustomModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UsersSerializers
+    # lookup_field = "identifier"
+
+    # def get_object(self):
+        
 
 
 # ############## LogIn & LogOut View ##############################
