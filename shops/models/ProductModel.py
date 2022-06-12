@@ -49,8 +49,8 @@ class ProductModel(BaseNamedmodel):
                             choices=PROUDCT_MEASURING_CHOICE,
                             default="SC"
                         )
-    measuring_params = models.OneToOneField(MeasuringModel,on_delete=models.CASCADE)
-    related_tags = models.ManyToManyField(Tagmodel,verbose_name="tags according to product",related_name="tags_product")
+    measuring_params = models.OneToOneField(MeasuringModel,on_delete=models.CASCADE,blank=True)
+    related_tags = models.ManyToManyField(Tagmodel,verbose_name="tags according to product",related_name="tags_product",blank=True)
 
     class Meta : 
         # abstract = False
