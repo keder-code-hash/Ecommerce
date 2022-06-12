@@ -8,6 +8,11 @@ MEASURING_UNIT_CHOICES = [
     ('CT', 'Countable Quantity'),
     ('MS', 'Measurable Quantity') 
 ]
+PROUDCT_MEASURING_CHOICE = [
+    ('CM','COUNTABLE PRODUCT'),
+    ('MM','MEASURING PRODUCT'),
+    ('SC','SIMPLE COUNTABLE PRODUCT')
+]
 class ProductMeasurableModel(BaseModel):
     prices = models.IntegerField(validators=[validate_amount])
     quantity_count = models.IntegerField(validators=[validate_amount])
@@ -39,8 +44,14 @@ class MeasuringModel(BaseModel):
 
 class ProductModel(BaseNamedmodel):
     product_images = models.ImageField(upload_to = 'images/') # width and height set, validators add
+    measuring_choices = models.CharField(
+                            max_length=2,
+                            choices=PROUDCT_MEASURING_CHOICE,
+                            default="SC"
+                        )
     measuring_params = models.OneToOneField(MeasuringModel,on_delete=models.CASCADE)
     related_tags = models.ManyToManyField(Tagmodel,verbose_name="tags according to product",related_name="tags_product")
+
     class Meta : 
         # abstract = False
         db_table = "Product"

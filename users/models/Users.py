@@ -33,21 +33,21 @@ class UserAddressModel(models.Model):
 
 ##createing a custom user manager for managing the model.
 class CustomAccountManager(BaseUserManager):
-    def create_user(self, username, password, **other_fields):
-        if not username:
-            raise ValueError(_('provide an user name')) 
-        user = Users(username=username, **other_fields)
+    def create_user(self, email , username, password, **other_fields):
+        if not email:
+            raise ValueError(_('Provide an email for the user')) 
+        user = Users(username=username,email = self.normalize_email(email), **other_fields)
         user.set_password(password)
-        user.save()
+        user.save(self._db)
         # print(user)
         return user
 
     ##creating a super user or a admin for managing the whole things.
-    def create_superuser(self,username,password, **other_fields):
+    def create_superuser(self,email,username,password, **other_fields):
         other_fields.setdefault('is_admin', True)
         other_fields.setdefault('is_superuser', True)
 
-        return self.create_user( username,password, **other_fields)
+        return self.create_user( email,username,password, **other_fields)
 
 GENDER_CHOICES = [
     ("ML","MALE"),
@@ -65,7 +65,11 @@ class Users(UserEntity,AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
 
-    email = models.EmailField(_('email address'),blank=False, max_length=100)
+    email = models.EmailField(_('email address'),
+                                blank=False,
+                                max_length=100,
+                                unique=True )
+
     ph_NO_code = models.CharField(max_length=50)
     ph_NO = models.CharField(max_length=50)
     
@@ -81,8 +85,8 @@ class Users(UserEntity,AbstractBaseUser, PermissionsMixin):
 
     objects = CustomAccountManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['ph_NO']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['ph_NO','username']
 
     def __str__(self):
         return self.username

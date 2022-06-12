@@ -14,7 +14,7 @@ class UsersSerializers(UserEntitySerializers):
     def create(self,validated_data):
         user_address = validated_data.pop('address')
         user_delivery_address = validated_data.pop('delivery_address')
-        customUser=Users.objects.create_user(validated_data['username']
+        customUser=Users.objects.create_user(validated_data['email'] ,validated_data['username']
                     ,validated_data['password'])
         
         for user_add in user_address:

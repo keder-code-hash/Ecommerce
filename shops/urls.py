@@ -10,5 +10,5 @@ router.register(r'API/fetchshops',ShopModelViewSet ,basename="shops")
 
 urlpatterns=[
     path('',include(router.urls)),
-    path('API/poductbytags/<tags>',TagProductModelViewSet.as_view(),name = "tagfilter")
+    path('API/poductbytags/',TagProductModelViewSet.as_view(),name = "tagfilter")
 ]
