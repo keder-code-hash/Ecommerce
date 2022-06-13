@@ -33,6 +33,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.contrib.auth import get_user_model
 
+import json
 # permission class is set to authinticate or read only
 # persmission
 class UserView(APIView): 
@@ -72,8 +73,9 @@ class LogInView(APIView):
     serializer_class = LoginSerializer
 
     def post(self,request): 
-        
-        serializers_data = self.serializer_class(data=request.data)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode) 
+        serializers_data = self.serializer_class(data=body)
         serializers_data.is_valid(raise_exception=True)
         # print(serializers_data.validated_data)
  

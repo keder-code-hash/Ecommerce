@@ -15,16 +15,13 @@ from .serializers.Users import UsersSerializers
 
  
 class LoginSerializer(serializers.Serializer): 
-    username = serializers.CharField(max_length=255)
+    email = serializers.CharField(max_length = 255, write_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
-    ph_NO = serializers.CharField(max_length = 255, read_only = True)
-    email = serializers.CharField(max_length = 255, read_only = True)
     user = UsersSerializers(read_only = True)
-
-    tokens = serializers.SerializerMethodField()
+    tokens = serializers.SerializerMethodField() 
 
     def get_tokens(self, obj):
-        user = Users.objects.get(username__iexact=obj['username'])
+        user = Users.objects.get(email=obj['email'])
 
         return {
             'refresh': user.tokens()['refresh'],
@@ -33,19 +30,19 @@ class LoginSerializer(serializers.Serializer):
  
 
     def validate(self,attrs):
-        username = attrs.get('username', 'Keder')
+        email = attrs.get('email', '')
         password = attrs.get('password', '')
-        filtered_user_by_username = Users.objects.filter(username=username)
-        # print(filtered_user_by_username)
+        filtered_user_by_email = Users.objects.filter(email=email)
+        print(email)
         # user = auth.authenticate(username=username, password=password)
 
-        user = None
-        if Users.objects.get(username__iexact = username).check_password(password):
-            user = Users.objects.get(username__iexact = username)
+        user = auth.authenticate(email=email, password=password)
+        # if Users.objects.get(email= email).check_password(password):
+        #     user = Users.objects.get(email= email)
 
-        if filtered_user_by_username.exists() == False:
+        if filtered_user_by_email.exists() == False:
             raise AuthenticationFailed(
-                detail='Invalid user name. Please check it out.')
+                detail='Invalid email id. Please check it out.')
 
         if not user:
             raise AuthenticationFailed('Invalid credentials, try again')
@@ -54,13 +51,10 @@ class LoginSerializer(serializers.Serializer):
         # if not user.is_verified:
         #     raise AuthenticationFailed('Email is not verified')
 
-        return {
+        return { 
             'email': user.email,
-            'username': user.username,
-            'first_name' : user.first_name,
-            'tokens': user.tokens ,
-            'ph_NO' : user.ph_NO,
-            'user':user
+            'user':user,
+            'tokens': user.tokens
         }
 
 class LogoutSerializer(serializers.Serializer):

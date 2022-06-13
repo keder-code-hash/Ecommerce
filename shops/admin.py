@@ -42,7 +42,7 @@ class ProductTagchangeList(ChangeList):
         # self.list_display = ['product_images','measuring_choices','tags']
         self.list_editable = ['tags']
 
-class TagInline(admin.TabularInline):
+class TagInline(admin.StackedInline):
     model = ProductModel.tags.through
 
 class ProductAdmin(admin.ModelAdmin):
