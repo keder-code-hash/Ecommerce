@@ -1,7 +1,4 @@
-from django.contrib import admin
-from django.contrib.admin.views.main import ChangeList
-from .forms.TagForm import TagChangeListForm
-from django.forms import BaseModelFormSet
+from django.contrib import admin 
 
 from .models.ProductModel import *
 from .models.NamedModel import *
@@ -14,50 +11,95 @@ from .models.TagModel import Tagmodel
 
 # Register your models here.
 
-# admin.site.register(MeasuringModel)
-# admin.site.register(ProductCountableModel)
-# admin.site.register(ProductMeasurableModel)
+admin.site.register(ProductCountableModel)
+admin.site.register(ProductMeasurableModel)
 
-# admin.site.register(PouchModel)
+admin.site.register(PouchModel)
 
-# admin.site.register(ShopModel)
-
-# admin.site.register(CartModel)
-# admin.site.register(UserOrder)
-# admin.site.register(OrderMeasureModel)
+admin.site.register(OrderMeasureModel)
 
 
 admin.site.register(Tagmodel)
 
-# changing the editbale tag field in product
-
-class MyAdminFormSet(BaseModelFormSet):
-    queryset = Tagmodel.objects.all()
-
-
-class ProductTagchangeList(ChangeList):
-    def __init__(self, request, model , list_display, list_display_links, list_filter , date_hierarchy , search_fields , list_select_related, list_per_page, list_max_show_all, list_editable, model_admin, sortable_by) :
-        super(ProductTagchangeList,self).__init__(request, model, list_display, list_display_links, list_filter, date_hierarchy, search_fields, list_select_related, list_per_page, list_max_show_all, list_editable, model_admin, sortable_by)
-
-        # self.list_display = ['product_images','measuring_choices','tags']
-        self.list_editable = ['tags']
+# changing the editbale tag field in product 
 
 class TagInline(admin.StackedInline):
     model = ProductModel.tags.through
+    extra = 1
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name','measuring_choices',)
-    inlines = (TagInline,)
-    def get_changelist(self, request , **kwargs ) :
-        return ProductTagchangeList
-    
-    def get_changelist_form(self, request, **kwargs):
-        return TagChangeListForm
-    
-    def get_changelist_formset(self, request, **kwargs):
-        kwargs['formset'] = MyAdminFormSet
-        return super().get_changelist_formset(request, **kwargs)
-
-
-
+    inlines = (TagInline,) 
+ 
 admin.site.register(ProductModel,ProductAdmin)
+
+
+# changing the admin pannel field for shops
+
+class ShopProductInline(admin.StackedInline):
+    model = ShopModel.shop_prouducts.through
+    extra = 1
+    verbose_name = "Add Products From Dropdown According to Shops"
+class ShopPartnersInline(admin.StackedInline):
+    model = ShopModel.partners.through
+    extra = 1
+    verbose_name = "Add Shop Prtner From Dropdown According to Shops"
+class ShopShopAddressInline(admin.StackedInline):
+    model = ShopModel.shop_address.through
+    extra = 1
+    verbose_name = "Add Ahop Address From Dropdown According to Shops"
+
+class ShopAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    inlines = (ShopProductInline,ShopPartnersInline,ShopShopAddressInline)
+
+admin.site.register(ShopModel,ShopAdmin)
+
+# Edit m2m field in cartmodel admin pannel
+
+class CartProductInline(admin.StackedInline):
+    model = CartModel.cart_product.through
+    extra = 1
+    verbose_name = "Add Product to the cart for any users "
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    inlines = (CartProductInline, )
+
+admin.site.register(CartModel,CartAdmin) 
+
+
+# Edit m2m field in Users Order Admin Pannel
+
+class UserOrderOrderedProdInline(admin.StackedInline):
+    model = UserOrder.ordered_prod.through
+    extra = 1
+    verbose_name = "Modify User Ordered Product"
+
+class UserOrderAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    inlines = (UserOrderOrderedProdInline,)
+
+admin.site.register(UserOrder,UserOrderAdmin)
+
+
+# Edit Measure Model m2m field in admin pannel
+
+
+class MeasuringModelCountableInline(admin.StackedInline):
+    model = MeasuringModel.countable_product.through
+    extra = 1
+    verbose_name = "Add countable product"
+
+class MeasuringModelMeasurableInline(admin.StackedInline):
+    model = MeasuringModel.measurable_product.through
+    extra = 1
+    verbose_name = "Add measuring product "
+
+class MeasuringmodelAdmin(admin.ModelAdmin):
+    inlines = (MeasuringModelCountableInline,MeasuringModelMeasurableInline,)
+
+admin.site.register(MeasuringModel,MeasuringmodelAdmin)
+
+
+

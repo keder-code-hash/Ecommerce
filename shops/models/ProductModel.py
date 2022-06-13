@@ -35,11 +35,14 @@ class MeasuringModel(BaseModel):
     countable_product = models.ManyToManyField(ProductCountableModel,blank=True)
     measurable_product = models.ManyToManyField(ProductMeasurableModel,blank=True)
 
+    def __str__(self) -> str:
+        return self.measuring_unit
+
     class Meta :
         # abstract = True
         # ordering = []
         pass
-
+    
 
 
 class ProductModel(BaseNamedmodel):
