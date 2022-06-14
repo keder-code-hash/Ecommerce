@@ -33,8 +33,9 @@ class MeasuringModelSerializers(BaseModelSerializers):
 
 
 class ProductModelSerializers(BaseNamedModelSerializers): 
-    measuring_params = MeasuringModelSerializers() 
-    related_tags = TagModelSerializers(many = True) 
+    # measuring_params = MeasuringModelSerializers() 
+    tags = TagModelSerializers(many = True) 
     class Meta : 
         model = ProductModel
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('product_images',)

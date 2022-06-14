@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    "corsheaders",
     "rest_framework.authtoken",
     "rest_framework_simplejwt.token_blacklist",
     'users',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -214,3 +216,6 @@ DATABASES = {
 } 
 
 DATABASES['default'] = dj_database_url.config(default='postgres://fgedhhnfwphjhh:d8efc9781ca294e70ec3d92bd1d0aef84c53e022b8f095f784a227de09ed4e46@ec2-54-147-33-38.compute-1.amazonaws.com:5432/dcj4a9lftjhj6p')
+
+
+CORS_ALLOW_ALL_ORIGINS = True

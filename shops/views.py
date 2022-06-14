@@ -14,6 +14,7 @@ from rest_framework.exceptions import APIException
 from rest_framework import status
 from rest_framework.views import Response,APIView
 
+from django.core import serializers
 import json
 
 class ShopModelViewSet(ReadOnlyModelViewSet):
@@ -29,24 +30,28 @@ class TagProductModelViewSet(APIView):
 
     def get(self,request,format = None):
         try :
-
+            print(ProductModel.objects.filter(name__iexact = "Sharee1").values())
             body_unicode = request.body.decode('utf-8')
             body = json.loads(body_unicode) 
             tags = body.get('tags')
-
+            result = []
             instance = None
             for tag in tags :
                 if instance is None:
-                    instance = ProductModel.objects.filter(related_tags__name__iexact = tag)
+                    instance = ProductModel.objects.filter(tags__name__iexact = tag).values()
                 else:
-                    instance = instance.filter(related_tags__name__iexact = tag)
-            instance = instance.values()
-
-            instance = get_object_or_404(instance)
-            serializer = ProductModelSerializers(data = instance,many=True)
-            serializer.is_valid(raise_exception=True)
-            return Response(serializer.data,status=status.HTTP_200_OK)
+                    instance = instance.filter(tags__name__iexact = tag)
+            for inst in instance:
+                prod_id = inst.get('id')
+                Tag = Tagmodel.objects.filter(tags_product__id = prod_id).values()
+                inst['tags'] = Tag
+                result.append(inst)
+            # serializer = ProductModelSerializers(data = result,many=True)
+            # serializer.is_valid(raise_exception=True)
+            return Response(result,status=status.HTTP_200_OK)
         except ProductModel.DoesNotExist:
             message = f"Inavalid request: Product Not Found: {tags}"
             raise APIException({"message": ValueError(message)}, message, 400)
- 
+
+            
+#  makemeglobal.org@gmail.com

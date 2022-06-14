@@ -22,7 +22,7 @@ admin.site.register(OrderMeasureModel)
 admin.site.register(Tagmodel)
 
 # changing the editbale tag field in product 
-
+# adding the product tag to the init list 
 class TagInline(admin.StackedInline):
     model = ProductModel.tags.through
     extra = 1
