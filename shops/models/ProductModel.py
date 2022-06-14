@@ -2,8 +2,6 @@ from django.db import models
 
 from shops.models.Discount import DiscountModel
 from .NamedModel import NamedModel
-from .PouchModel import validate_amount,PouchModel
-from users.models.BaseModel import BaseModel
 from .TagModel import Tagmodel
  
 PROUDCT_MEASURING_CHOICE = [

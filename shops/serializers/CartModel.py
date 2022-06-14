@@ -1,11 +1,12 @@
 from ..models.CartModel import CartModel
-from .UsersOrder import OrderMeasureModelSerializers
 from users.serializers.Users import UsersSerializers
 from .NamedModel import BaseNamedModelSerializers
+from .Product_count_map import ProductModelSerializers
+
 
 class CartMOdelSerializers(BaseNamedModelSerializers):
 
-    card_product = OrderMeasureModelSerializers(many = True)
+    product_count_map = ProductModelSerializers()
     Users = UsersSerializers(many = True)
 
     class Meta :

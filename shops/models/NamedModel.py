@@ -10,8 +10,6 @@ class BaseNamedmodel(BaseModel):
     created_at = models.DateTimeField(auto_created=True,auto_now=True)#editable = Flase
     updated_at = models.DateTimeField(auto_created=True, auto_now_add=True)
     deleted_at = models.DateTimeField(auto_created=True, auto_now_add=True)
-    created_by = models.OneToOneField(Users,on_delete=models.CASCADE,blank=True)
-    modified_by = models.OneToOneField(Users,on_delete=models.CASCADE,blank=True)
     data_status = models.BooleanField(default=True) #set false for delete
     class Meta : 
         abstract = True
@@ -23,8 +21,6 @@ class NamedModel(BaseModel):
     created_at = models.DateTimeField(auto_created=True,auto_now=True)#editable = Flase
     updated_at = models.DateTimeField(auto_created=True, auto_now_add=True)
     deleted_at = models.DateTimeField(auto_created=True, auto_now_add=True)
-    created_by = models.OneToOneField(Users,on_delete=models.CASCADE,blank=True)
-    modified_by = models.OneToOneField(Users,on_delete=models.CASCADE,blank=True)
     data_status = models.BooleanField(default=True) #set false for delete
     class Meta : 
         abstract = True
