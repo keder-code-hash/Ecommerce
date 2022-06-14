@@ -4,11 +4,11 @@ from .NamedModel import NamedModel
 from .UserOrders import OrderMeasureModel
 
 from users.models.Users import Users
+from .Product_count_map import ProductCountModels
 
 class CartModel(NamedModel):
 
-    cart_product = models.ManyToManyField(OrderMeasureModel,related_name="items_in_cart",blank=True)
-    product_count = models.IntegerField()
+    product_count_map = models.ForeignKey(ProductCountModels,on_delete=models.CASCADE,blank=True)
     Users = models.ForeignKey(Users,on_delete=models.CASCADE,blank=True,related_name="users_cart")
 
     def __str__(self) -> str:

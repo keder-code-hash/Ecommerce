@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     'users',
     'drf_yasg',
-    'shops'
+    'shops',
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -79,26 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     # 'default':{},
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     },
-#     # 'shop': {
-#     #         'ENGINE': 'djongo',
-#     #         'NAME': '*******',
-#     #         'ENFORCE_SCHEMA': False,
-#     #         'CLIENT': {
-#     #             'host': 'mongodb://127.0.0.1:27017/'
-#     #         }  
-#     #     }
-#     # migrate --database=users
-# }
-# DATABASE_ROUTERS = ['users.apps.AuthRouter','shops.apps.ShopRouter']
+  
  
 
 # Password validation
@@ -213,9 +195,8 @@ EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 
 DATABASES = {
      
-} 
+}  
 
 DATABASES['default'] = dj_database_url.config(default='postgres://fgedhhnfwphjhh:d8efc9781ca294e70ec3d92bd1d0aef84c53e022b8f095f784a227de09ed4e46@ec2-54-147-33-38.compute-1.amazonaws.com:5432/dcj4a9lftjhj6p')
-
 
 CORS_ALLOW_ALL_ORIGINS = True
