@@ -5,3 +5,5 @@ from .CartModel import *
 from .ShopModel import *
 from .TagModel import *
 from .Product_count_map import *
+from .OrderDetails import *
+from .OrderedItems import *

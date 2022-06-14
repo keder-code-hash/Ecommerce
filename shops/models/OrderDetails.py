@@ -6,7 +6,7 @@ from .OrderedItems import OrderedItems
 
 
 class OrderedDetails(NamedModel):
-    ordered_items = models.OneToOneField(OrderedItems,on_delete=models.CASECADE,blank= True)
+    ordered_items = models.OneToOneField(OrderedItems, on_delete=models.CASCADE ,blank= True)
     total_amount  = models.IntegerField()
     ordered_by = models.ManyToManyField(Users)
     ordered_address = models.ManyToManyField(UserAddressModel)
@@ -15,5 +15,5 @@ class OrderedDetails(NamedModel):
         return self.name
 
     class Meta:
-        db_tables = "Ordered Details"
+        db_table = "Ordered Details"
         abstract = False

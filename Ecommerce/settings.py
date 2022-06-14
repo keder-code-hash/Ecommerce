@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     'users',
     'drf_yasg',
-    'shops',
-    'orders'
+    'shops', 
+    
 ]
 
 MIDDLEWARE = [
@@ -194,9 +194,9 @@ EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 DATABASES = {
-     
+      
 }  
 
-DATABASES['default'] = dj_database_url.config(default='postgres://fgedhhnfwphjhh:d8efc9781ca294e70ec3d92bd1d0aef84c53e022b8f095f784a227de09ed4e46@ec2-54-147-33-38.compute-1.amazonaws.com:5432/dcj4a9lftjhj6p')
+DATABASES['default'] = dj_database_url.config(default='postgres://qliaolxhtityqm:f652b9a00c561a87d91837e853930e584223eaa7e707b39c179481d4a593af2f@ec2-52-72-56-59.compute-1.amazonaws.com:5432/dcnt0h06t6rihs')
 
 CORS_ALLOW_ALL_ORIGINS = True
