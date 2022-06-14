@@ -7,10 +7,12 @@ from ..models.ShopModel import ShopModel
 from .Product_count_map import ProductModelSerializers
 
 class ShopModelSerializers(serializers.ModelSerializer):
+    
     shop_prouducts = ProductModelSerializers()
     shop_owner = UsersSerializers() 
     partners = UsersSerializers() 
     shop_address = AddressSerializers(many = True)  
+
     class Meta:
         model = ShopModel
         fields = "__all__"

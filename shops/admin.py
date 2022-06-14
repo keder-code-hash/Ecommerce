@@ -3,12 +3,19 @@ from django.contrib import admin
 from .models.ProductModel import *
 from .models.NamedModel import *
 from .models.ShopModel import *
-from .models.CartModel import CartModel
-from .models.TagModel import Tagmodel
-
+from .models.CartModel import *
+from .models.TagModel import *
+from .models.Product_count_map import *
+from .models.Discount import DiscountModel
 
 # Register your models here.
 
+admin.site.register(ProductModel)
+admin.site.register(CartModel)
+admin.site.register(Tagmodel)
+admin.site.register(DiscountModel)
+admin.site.register(ProductCountModels)
+admin.site.register(ShopModel)
 # admin.site.register(ProductCountableModel)
 # admin.site.register(ProductMeasurableModel)
 

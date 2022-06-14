@@ -10,4 +10,4 @@ class ProductModelSerializers(BaseNamedModelSerializers):
     tags = TagModelSerializers(many = True) 
     class Meta : 
         model = ProductModel
-        fields = "__all__" 
+        fields = "__all__"  

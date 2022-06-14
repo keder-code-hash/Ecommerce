@@ -19,7 +19,7 @@ AMOUNT_UNIT_CHOICES = [
 
 class ProductModel(NamedModel):
     product_images = models.ImageField(upload_to = 'images/') # width and height set, validators add
-    tags = models.ManyToManyField(Tagmodel,related_name="tags_product",blank=True)
+    tags = models.ManyToManyField(Tagmodel,related_name="tags_product",blank=True,null=True)
 
     product_measuring_choices = models.CharField(
                             max_length=2,
@@ -27,7 +27,7 @@ class ProductModel(NamedModel):
                             default="SC"
                         )
     price_of_product_single_unit = models.IntegerField()
-    discount = models.OneToOneField(DiscountModel,on_delete=models.CASCADE,blank=True)
+    discount = models.ForeignKey(DiscountModel,on_delete=models.CASCADE,blank=True,null=True)
     product_measure_unit = models.CharField(
                             max_length=2,
                             choices=AMOUNT_UNIT_CHOICES,
